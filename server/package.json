@@ -1,7 +1,7 @@
 {
   "name": "compare-salaries",
   "version": "1.0.0",
-  "description": "Node.js Restful CRUD API with Node.js, Express and MongoDB for CompareIT",
+  "description": "Node.js Restful CRUD API with Node, Express and MongoDB for CompareIT",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -125,9 +125,10 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
-// Find all published Users 
-exports.findAllPublished = (req, res) => {
-    User.find({ published: true })
+// Find all specific password from Users 
+exports.findSpecificPassword = (req, res) => {
+  const password = req.params.password;
+    User.find({ password: password })
       .then(data => {
         res.send(data);
       })
