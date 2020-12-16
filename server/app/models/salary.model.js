@@ -3,9 +3,13 @@ const { ObjectID } = require("mongodb");
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
-        job: String,
-        company: String,
-        salary: Number
+        job: ObjectID,
+        company: ObjectID,
+        location: String,
+        PFA: Boolean,
+        salary: Number,
+        currency: String,
+        date: Date
       },
       { timestamps: true }
     );
