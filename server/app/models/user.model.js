@@ -1,10 +1,19 @@
+const { ObjectID } = require("mongodb");
+
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         firstName: String,
         lastName: String,
         email: String,
-        password: String
+        password: String,
+        completedTask: Boolean,
+        salaries: [ObjectID],
+        sex: Boolean,
+        location: String,
+        phoneNumber: String,
+        bestSkills: String,
+        questions: ObjectID
       },
       { timestamps: true }
     );
