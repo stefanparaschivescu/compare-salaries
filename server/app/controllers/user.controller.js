@@ -125,7 +125,7 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
-// Find all specific password from Users 
+// Find all with a specific password from Users 
 exports.findSpecificPassword = (req, res) => {
   const password = req.params.password;
     User.find({ password: password })
