@@ -9,7 +9,7 @@ module.exports = app => {
     // Retrieve all Users
     router.get("/", users.findAll);
   
-    // Retrieve all published Users
+    // Retrieve all Users with specific password
     router.get("/:password", users.findSpecificPassword);
   
     // Retrieve a single User with id
