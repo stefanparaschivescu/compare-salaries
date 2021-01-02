@@ -4,7 +4,7 @@ module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         user_id: ObjectID,
-        review: String,
+        description: String,
         date: Date,
         mark: Number
       },

@@ -4,8 +4,7 @@ module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         name: String,
-        experience: Number,
-        technology: [ObjectID]
+        uses: { type: Number, default: 1 }
       },
       { timestamps: true }
     );
@@ -16,6 +15,6 @@ module.exports = mongoose => {
       return object;
     });
   
-    const Job = mongoose.model("jobs", schema);
-    return Job;
+    const Technology = mongoose.model("technologies", schema);
+    return Technology;
   };
