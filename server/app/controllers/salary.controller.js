@@ -129,7 +129,7 @@ exports.deleteAll = (req, res) => {
       });
   };
 // Find all from a specific location from Salaries 
-exports.findSpecificCountry = (req, res) => {
+exports.findSpecificLocation = (req, res) => {
   const location = req.params.location;
     Salary.find({ location: location })
       .then(data => {
@@ -143,7 +143,7 @@ exports.findSpecificCountry = (req, res) => {
       });
   };
 // Find all with a specific salary from Salaries 
-exports.findSpecificName = (req, res) => {
+exports.findSpecificSalary = (req, res) => {
     const salary = req.params.salary;
       Salary.find({ salary: salary })
         .then(data => {
