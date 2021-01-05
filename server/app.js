@@ -29,6 +29,7 @@ app.use(express.urlencoded({
 // });
 
 const db = require("./app/models");
+console.log(db);
 db.mongoose.connect(db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -45,6 +46,13 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/user.routes")(app);
+require("./app/routes/salary.routes")(app);
+require("./app/routes/review.routes")(app);
+require("./app/routes/question.routes")(app);
+require("./app/routes/interview.routes")(app);
+require("./app/routes/company.routes")(app);
+require("./app/routes/job.routes")(app);
+require("./app/routes/technology.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
