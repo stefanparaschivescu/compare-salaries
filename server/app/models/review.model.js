@@ -5,6 +5,7 @@ module.exports = mongoose => {
       {
         user_id: ObjectID,
         description: String,
+        company: ObjectID,
         date: Date,
         mark: Number
       },

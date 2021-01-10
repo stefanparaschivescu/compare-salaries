@@ -3,6 +3,7 @@ const { ObjectID } = require("mongodb");
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
+        user_id: ObjectID,
         question1: String,
         question2: String,
         question3: String,
