@@ -3,9 +3,7 @@ const { ObjectID } = require("mongodb");
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
-        name: String,
-        experience: Number,
-        technology: [ObjectID]
+        name: String
       },
       { timestamps: true }
     );
