@@ -9,10 +9,12 @@ module.exports = mongoose => {
         password: String,
         completedTask: Boolean,
         salaries: [ObjectID],
+        reviews: [ObjectID],
+        interviews: [ObjectID],
         sex: Boolean,
         location: String,
         phoneNumber: String,
-        bestSkills: String,
+        bestSkills: [ObjectID], //technologies that he is best at
         questions: ObjectID
       },
       { timestamps: true }
