@@ -4,7 +4,7 @@ const User = db.users;
 // Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) {
+    if (!req.body.firstName && !req.body.lastName && !req.body.email && !req.body.password) {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
     }
@@ -14,9 +14,12 @@ exports.create = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password 
+        password: req.body.password,
+        sex: req.body.sex,
+        location: req.body.location,
+        phoneNumber: req.body.phoneNumber
     });
-  
+ 
     // Save User in the database
     user.save(user).then(data => {
         res.send(data);
@@ -29,11 +32,18 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Users from the database.
-exports.findAll = (req, res) => {
-    const firstName = req.query.firstName;
-    var condition = firstName ? { firstName: { $regex: new RegExp(firstName), $options: "i" } } : {};
+exports.findUser = (req, res) => {
+    var query = req.query;
 
-    User.find(condition)
+    if (query.hasOwnProperty("firstName")) query["firstName"] = query.firstName;
+    if (query.hasOwnProperty("lastName")) query["lastName"] = query.lastName;
+    if (query.hasOwnProperty("email")) query["email"] = query.email;
+    if (query.hasOwnProperty("completedTask")) query["completedTask"] = (query.completedTask == 'true');
+    if (query.hasOwnProperty("sex")) query["sex"] = (query.sex == 'true');
+    if (query.hasOwnProperty("location")) query["location"] = query.location;
+    if (query.hasOwnProperty("phoneNumber")) query["phoneNumber"] = query.phoneNumber;
+
+    User.find(query)
       .then(data => {
         res.send(data);
       })
@@ -112,23 +122,25 @@ exports.delete = (req, res) => {
 
 // Delete all Users from the database.
 exports.deleteAll = (req, res) => {
-    User.deleteMany({})
-      .then(data => {
-        res.send({
-          message: `${data.deletedCount} Users were deleted successfully!`
-        });
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while removing all users."
-        });
+  User.deleteMany({})
+    .then(data => {
+      res.send({
+        message: `${data.deletedCount} Users were deleted successfully!`
       });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all users."
+      });
+    });
   };
-// Find all with a specific password from Users 
-exports.findSpecificPassword = (req, res) => {
-  const password = req.params.password;
-    User.find({ password: password })
+
+// Find all from a specific location 
+exports.findSpecificLocation = (req, res) => {
+  const location = req.params.location;
+  var condition = location ? { location: { $regex: new RegExp(location), $options: "i" } } : {};
+    User.find(condition)
       .then(data => {
         res.send(data);
       })
@@ -136,6 +148,42 @@ exports.findSpecificPassword = (req, res) => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while retrieving users."
+        });
+      });
+  };
+
+// Find all with a specific name from Users
+exports.findSpecificUserByName = (req, res) => {
+  const firstName = req.params.firstName;
+  const lastName = req.params.lastName;
+  var condition1 = firstName ? { firstName: { $regex: new RegExp(firstName), $options: "i" } } : {};
+  var condition2 = lastName ? { lastName: { $regex: new RegExp(lastName), $options: "i" } } : {};
+
+    User.find({$and: [condition1, condition2] })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Companies."
+        });
+      });
+  };
+
+// Find specific email from Users
+exports.findSpecificEmail = (req, res) => {
+  const email = req.params.email;
+  var condition1 = email ? { email: { $regex: new RegExp(email), $options: "i" } } : {};
+
+    User.find(condition1)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Companies."
         });
       });
   };

@@ -7,11 +7,11 @@ module.exports = mongoose => {
         lastName: String,
         email: String,
         password: String,
-        completedTask: Boolean,
+        completedTask: { type: Boolean, default: false },
         salaries: [ObjectID],
         reviews: [ObjectID],
         interviews: [ObjectID],
-        sex: Boolean,
+        sex: Boolean, //male if true, female if false
         location: String,
         phoneNumber: String,
         bestSkills: [ObjectID], //technologies that he is best at
