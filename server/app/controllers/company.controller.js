@@ -126,7 +126,8 @@ exports.deleteAll = (req, res) => {
 // Find all with a specific name from Companies 
 exports.findSpecificName = (req, res) => {
   const name = req.params.name;
-    Company.find({ name: name })
+  var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
+    Company.find(condition)
       .then(data => {
         res.send(data);
       })
@@ -138,9 +139,10 @@ exports.findSpecificName = (req, res) => {
       });
   };
 // Find all from a specific country from Companies 
-exports.findSpecificName = (req, res) => {
+exports.findSpecificCountry = (req, res) => {
     const country = req.params.country;
-      Company.find({ country: country })
+    var condition = country ? { country: { $regex: new RegExp(country), $options: "i" } } : {};
+      Company.find(condition)
         .then(data => {
           res.send(data);
         })
@@ -151,3 +153,22 @@ exports.findSpecificName = (req, res) => {
           });
         });
     };
+
+// Find all from a specific company 
+exports.findSpecificCompany = (req, res) => {
+  const country = req.params.country;
+  const name = req.params.name;
+  var condition1 = country ? { country: { $regex: new RegExp(country), $options: "i" } } : {};
+  var condition2 = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
+
+    Company.find({$and: [condition1, condition2] })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Companies."
+        });
+      });
+  };
